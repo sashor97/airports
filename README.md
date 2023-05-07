@@ -1,5 +1,5 @@
 # Airports managing system
-This project is an API for managing airports and flights, built using Spring Boot and JPA. It provides endpoints for adding new airports and flights, retrieving flights from a specific airport, and more. You can also build a docker image for this application by click RUN on `Dockerfile`. You can also run it on kubernetes by applying files in `kubernetes` folder
+This project is an API for managing airports and flights, built using Spring Boot and JPA. It provides endpoints for adding new airports and flights, retrieving flights from a specific airport, and more. Below I will explain how you can run docker images. You can also run it on kubernetes by applying files in `kubernetes` folder
 
 # Getting started
 To get started with this project, clone the repository and install the necessary dependencies. You will also need to set up a MySQL database and update the application.properties file with your database credentials.
@@ -28,7 +28,7 @@ The system provides the following functionality:
 - Retrieve flights based on various criteria specified by query parameters.
 
 ## Getting Started
-To get started with this project, clone the repository and install the necessary dependencies. You will also need to set up a MySQL database and update the application.properties file with your database credentials.
+To get started with this project, clone the repository and install the necessary dependencies. You will also need to set up a MySQL database and update the application.properties file with your database credentials you can follow also the step below `Build Docker images`
 ```
 git clone https://github.com/sashor97/airports.git
 cd airports
@@ -42,6 +42,12 @@ mvn spring-boot:run
 ```
 The application will be available at `http://localhost:8080.`
 
+# Build Docker images
+Open terminal and run commands below
+1) `docker run 3306:3306 --name mysql-container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=airports -e MYSQL_USER=root -e MYSQL_PASSWORD=root -d mysql`
+2) In same directory of Dockerfile in project run -> `docker build -t spring-application:1.0 .`
+3) `docker run -p 8080:8080 --link mysql-container --name spring-application spring-application:1.0`
+4) open POSTMAN and make request
 
 ## Usage
 Once the system is running, you can use the following endpoints to interact with the system:
