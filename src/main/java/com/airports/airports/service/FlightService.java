@@ -102,13 +102,21 @@ public class FlightService {
         Airport airport = airportRepository.findByCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Airport not found"));
         List<Flight> flights = flightRepository.findByCodeOrderByDestAirportCodeAscDepartureTimeAsc(code);
-        Map<String, List<Flight>> flightsMap = new TreeMap<>();
+
+        Map<String, Object> responseMap = new LinkedHashMap<>();
+        responseMap.put("code", code);
+
+        Map<String, List<Flight>> flightsMap = new LinkedHashMap<>();
         flightsMap.put("departingFlights", airport.getDepartingFlights());
         flightsMap.put("arrivingFlights", airport.getArrivingFlights());
         flightsMap.put("otherFlights", flights);
+
+        responseMap.put("flights", flightsMap);
+
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(flightsMap);
+        return objectMapper.writeValueAsString(responseMap);
     }
+
 
     public List<Flight> getAllDirectFlights(String startCode, String destCode) {
         return flightRepository.findByStartAirportCodeAndDestAirportCode(startCode, destCode);
