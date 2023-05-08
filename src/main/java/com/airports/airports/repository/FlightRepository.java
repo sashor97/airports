@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-    @Query("SELECT f FROM  Flight f  WHERE f.destAirport.code = :code ORDER BY f.departureTime ASC")
+    @Query("SELECT f FROM  Flight f  WHERE (f.destAirport.code = :code OR f.startAirport.code =:code) ORDER BY f.startAirport.code ASC,f.departureTime DESC")
     List<Flight> findByCodeOrderByDestAirportCodeAscDepartureTimeAsc(String code);
 
     @Query("SELECT f FROM Flight f  WHERE f.startAirport.code = :startCode and f.destAirport.code = :destCode")
