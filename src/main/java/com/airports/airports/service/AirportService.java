@@ -97,7 +97,7 @@ public class AirportService {
             try {
                 Optional<Airport> airport = airportRepository.findByCode(airportCode);
                 if (airport.isPresent()) {
-                    airportRepository.updateAirport(airportName, countryName, passengers);
+                    airportRepository.updateAirport(airportName, countryName, passengers,airportCode);
                 } else {
                     addAirport(airportName, countryName, airportCode, passengers);
                 }

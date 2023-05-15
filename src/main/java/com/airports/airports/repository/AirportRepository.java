@@ -16,8 +16,8 @@ public interface AirportRepository extends JpaRepository<Airport, Long> {
     Optional<Airport> findByCode(String code);
 
     @Modifying
-    @Query("update Airport a set a.name = ?1, a.country = ?2 where a.numPassengers = ?3")
-    void updateAirport(String name, String country,int numPassengers);
+    @Query("update Airport a set a.name = ?1, a.country = ?2 , a.numPassengers = ?3 where a.code = ?4")
+    void updateAirport(String name, String country,int numPassengers,String airportCode);
 
     @Transactional(readOnly = true)
     @Query("SELECT a FROM Airport as a WHERE a.code = :airportCode")
